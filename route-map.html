@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PREA Pipeline — Proposed Route Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;background:#EAE3D0;color:#172532;font-family:"Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+  a{color:#0B3B63}a:hover{color:#3F6B2E}
+  *{box-sizing:border-box}
+  #wrap{height:100%;display:flex;flex-direction:column}
+  #mapbox{position:relative;flex:1 1 auto;min-height:0}
+  #map{position:absolute;inset:0;background:#EAE3D0}
+  .leaflet-container{font-family:inherit;background:#EAE3D0}
+  .leaflet-tile-pane{filter:sepia(.45) saturate(.55) contrast(.9) brightness(1.04)}
+  .leaflet-control-zoom a{color:#0B3B63!important;font-family:Archivo,sans-serif}
+  .leaflet-bar{border:2px solid #0B3B63!important;border-radius:0!important}
+  .leaflet-bar a{border-radius:0!important}
+  .leaflet-control-attribution{font-size:10px;background:rgba(251,248,240,.85)!important}
+  .legend{position:absolute;z-index:500;top:10px;left:10px;background:rgba(251,248,240,.97);border-top:4px solid #E3A93A;box-shadow:0 10px 24px -12px rgba(23,37,50,.55);padding:8px 6px 6px;display:grid;gap:2px;max-width:230px}
+  .legend h4{margin:0 8px 4px;font:800 11px/1.2 Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5E574B}
+  .lg{display:flex;align-items:center;gap:10px;width:100%;padding:7px 8px;min-height:36px;background:none;border:0;cursor:pointer;text-align:left;font:700 12.5px/1.2 Archivo,sans-serif;letter-spacing:.04em;color:#172532}
+  .lg:hover{background:#F3ECDB}
+  .lg[aria-pressed="false"]{opacity:.45}
+  .lg[aria-pressed="false"] .sw{filter:grayscale(1)}
+  .sw{flex:none;width:26px;height:14px;display:block}
+  .sw.route{height:0;border-top:4px dashed #A63A1E;margin:5px 0}
+  .sw.zone{background:rgba(227,169,58,.4);border:1.5px dashed #A87A22}
+  .sw.cty{background:rgba(11,59,99,.08);border:2px solid #0B3B63}
+  .sw.anr{height:0;border-top:3px double #3D6E99;margin:6px 0;border-top-width:5px}
+  .panel{flex:none;background:#FBF8F0;border-top:3px solid #E3A93A;padding:10px 12px 12px;display:grid;gap:10px}
+  .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -12px;padding:0 12px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;min-height:40px;padding:0 14px;border:2px solid #0B3B63;background:transparent;color:#0B3B63;font:800 12.5px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .chip:hover{background:#DCE5EE}
+  .chip.on{background:#0B3B63;color:#fff}
+  .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .readout{flex:1 1 260px;min-width:0;font-size:15px;line-height:1.4;color:#2E2A23;text-wrap:pretty}
+  .readout b{font-weight:600;color:#172532}
+  .readout .hot{color:#A63A1E;font-weight:600}
+  .btn{flex:none;min-height:44px;padding:0 16px;border:0;border-bottom:3px solid #A87A22;background:#E3A93A;color:#172532;font:800 12.5px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .btn:hover{background:#EDBE5E}
+  .clabel{font:800 12px/1 Archivo,sans-serif;font-stretch:85%;letter-spacing:.16em;text-transform:uppercase;color:#0B3B63;white-space:nowrap;text-shadow:0 0 3px #FBF8F0,0 0 3px #FBF8F0,0 0 6px #FBF8F0;pointer-events:none;transform:translate(-50%,-50%);display:inline-block}
+  .clabel.dim{font-size:10px;color:#6F695C;font-weight:700}
+  .tlabel{font:700 11.5px/1.1 Archivo,sans-serif;letter-spacing:.04em;color:#172532;white-space:nowrap;text-shadow:0 0 3px #FBF8F0,0 0 3px #FBF8F0,0 0 5px #FBF8F0;pointer-events:none;display:inline-block;transform:translate(10px,-50%)}
+  .note.inpanel{position:static;max-width:none;text-align:left;margin:-10px -12px 0;padding:7px 12px;border-left:0}
+  .tlabel.left{transform:translate(calc(-100% - 10px),-50%)}
+  .tlabel.key{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:#A63A1E}
+  .leaflet-div-icon{background:none;border:0}
+  .pin{width:22px;height:22px;border-radius:50% 50% 50% 0;background:#0B3B63;border:3px solid #fff;transform:translate(-50%,-100%) rotate(-45deg);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+  .dist{font:800 12px/1 Archivo,sans-serif;letter-spacing:.06em;background:#172532;color:#E3A93A;padding:5px 7px;white-space:nowrap;display:inline-block;transform:translate(-50%,-50%)}
+  .note{position:absolute;z-index:500;right:10px;top:84px;text-align:right;max-width:220px;background:#172532;color:#F3ECDB;padding:8px 10px;font:700 11px/1.35 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;border-left:4px solid #E3A93A}
+  @media (max-width:560px){
+    .legend{max-width:172px;padding:6px 4px 4px}
+    .lg{font-size:11px;min-height:32px;padding:5px 6px;gap:8px}
+    .sw{width:20px}
+    .legend h4{font-size:10px}
+    .note{max-width:120px;font-size:10px}
+    .readout{font-size:14px}
+    .clabel{font-size:10.5px}
+    .tlabel{font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="mapbox">
+    <div id="map" aria-label="Map of the PREA's proposed pipeline route"></div>
+    <div class="legend">
+      <h4><button id="lgT" aria-expanded="true" style="all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:10px;width:100%">Show on map <span id="lgI">−</span></button></h4>
+      <button class="lg" data-layer="route" aria-pressed="true"><span class="sw route"></span>Proposed route</button>
+      <button class="lg" data-layer="zone" aria-pressed="true"><span class="sw zone"></span>Risk zone — route could shift</button>
+      <button class="lg" data-layer="cty" aria-pressed="true"><span class="sw cty"></span>5 counties on the route</button>
+      <button class="lg" data-layer="anr" aria-pressed="true"><span class="sw anr"></span>Existing ANR gas line</button>
+    </div>
+    <div class="note">Proposed route. Not final.</div>
+  </div>
+  <div class="panel">
+    <div class="chips" role="group" aria-label="Zoom to a county">
+      <button class="chip on" data-c="all">All 5 counties</button>
+      <button class="chip" data-c="21143">Lyon</button>
+      <button class="chip" data-c="21033">Caldwell</button>
+      <button class="chip" data-c="21221">Trigg</button>
+      <button class="chip" data-c="21047">Christian</button>
+      <button class="chip" data-c="21219">Todd</button>
+    </div>
+    <div class="row">
+      <div class="readout" id="readout" aria-live="polite"><b>Is your land close?</b> Tap your farm on the map to see how far it sits from the proposed route.</div>
+      <button class="btn" id="locate">Use my location</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var NARROW = window.innerWidth < 560;
+  var qs = new URLSearchParams(location.search);
+  var hs = new URLSearchParams(location.hash.slice(1));
+  var MILES = Math.max(0.5, parseFloat(hs.get('miles') || qs.get('miles')) || 5);
+  var COUNTIES = {"21143":"Lyon","21033":"Caldwell","21221":"Trigg","21047":"Christian","21219":"Todd"};
+  var NOTES = {
+    "21143":"The line would start here, tapping the existing ANR gas line near Lamasco.",
+    "21033":"The route runs along the I-24 corridor through southern Caldwell County.",
+    "21221":"The route follows I-24 across northern Trigg County, north of Cadiz.",
+    "21047":"The route follows I-24 past Hopkinsville toward Oak Grove, then turns east along the Tennessee line.",
+    "21219":"The line would end in Guthrie, at the state line — home of the Novelis plant it would serve."
+  };
+  // Approximate route traced from PREA's published map: Lamasco → I-24 corridor → east along the KY–TN line → Guthrie
+  var ROUTE = [[36.986,-87.936],[36.955,-87.865],[36.915,-87.790],[36.870,-87.700],[36.815,-87.615],[36.760,-87.545],[36.705,-87.480],[36.668,-87.420],[36.652,-87.350],[36.650,-87.270],[36.650,-87.166]];
+  var ANR = [[36.60,-88.157],[37.36,-87.721]];
+  var TOWNS = [
+    {n:"Lamasco — start", ll:[36.986,-87.936], key:true},
+    {n:"Guthrie — end", ll:[36.648,-87.166], key:true, end:true},
+    {n:"Princeton", ll:[37.109,-87.882]},
+    {n:"Cadiz", ll:[36.865,-87.835]},
+    {n:"Hopkinsville", ll:[36.866,-87.489]},
+    {n:"Oak Grove", ll:[36.665,-87.443]},
+    {n:"Trenton", ll:[36.723,-87.264]},
+    {n:"Elkton", ll:[36.810,-87.154], left:true}
+  ];
+
+  var lat0 = 36.85, KX = 111.32 * Math.cos(lat0 * Math.PI / 180), KY = 110.57;
+  function toXY(ll){ return [ll[1] * KX, ll[0] * KY]; }
+  function toLL(p){ return [p[1] / KY, p[0] / KX]; }
+
+  function buffer(line, rKm){
+    var P = line.map(toXY), n = P.length, L = [], R = [], i, N = [];
+    for (i = 0; i < n - 1; i++){ var dx = P[i+1][0]-P[i][0], dy = P[i+1][1]-P[i][1], l = Math.hypot(dx,dy); N.push([-dy/l, dx/l]); }
+    for (i = 0; i < n; i++){
+      var nv, s = 1;
+      if (i === 0) nv = N[0]; else if (i === n-1) nv = N[n-2];
+      else { var a = N[i-1], b = N[i], m = [a[0]+b[0], a[1]+b[1]], ml = Math.hypot(m[0],m[1]); nv = [m[0]/ml, m[1]/ml]; s = 1 / Math.max(0.5, nv[0]*b[0] + nv[1]*b[1]); }
+      L.push([P[i][0] + nv[0]*rKm*s, P[i][1] + nv[1]*rKm*s]);
+      R.push([P[i][0] - nv[0]*rKm*s, P[i][1] - nv[1]*rKm*s]);
+    }
+    function cap(c, nv){ var out = [], a0 = Math.atan2(nv[1], nv[0]); for (var k = 1; k < 16; k++){ var t = a0 - Math.PI * k / 16; out.push([c[0] + Math.cos(t)*rKm, c[1] + Math.sin(t)*rKm]); } return out; }
+    var ne = N[n-2], ns = N[0];
+    var ring = L.concat(cap(P[n-1], ne), R.reverse(), cap(P[0], [-ns[0], -ns[1]]));
+    return ring.map(toLL);
+  }
+
+  function nearest(ll){
+    var p = toXY(ll), P = ROUTE.map(toXY), best = {d: Infinity, q: null};
+    for (var i = 0; i < P.length - 1; i++){
+      var a = P[i], b = P[i+1], dx = b[0]-a[0], dy = b[1]-a[1];
+      var t = Math.max(0, Math.min(1, ((p[0]-a[0])*dx + (p[1]-a[1])*dy) / (dx*dx + dy*dy)));
+      var q = [a[0] + t*dx, a[1] + t*dy], d = Math.hypot(p[0]-q[0], p[1]-q[1]);
+      if (d < best.d) best = {d: d, q: q};
+    }
+    return {miles: best.d / 1.609, ll: toLL(best.q)};
+  }
+
+  function inRing(pt, ring){ var x = pt[0], y = pt[1], ins = false; for (var i = 0, j = ring.length - 1; i < ring.length; j = i++){ var xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1]; if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) ins = !ins; } return ins; }
+  function inFeature(lonlat, f){
+    var g = f.geometry, polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+    for (var i = 0; i < polys.length; i++){ if (inRing(lonlat, polys[i][0])){ var hole = false; for (var h = 1; h < polys[i].length; h++) if (inRing(lonlat, polys[i][h])) hole = true; if (!hole) return true; } }
+    return false;
+  }
+
+  var touch = window.matchMedia('(pointer: coarse)').matches;
+  var map = L.map('map', { zoomControl: false, scrollWheelZoom: false, dragging: !touch, tap: true, minZoom: 7, maxZoom: 12, zoomSnap: 0.25, attributionControl: true });
+  L.control.zoom({ position: 'topright' }).addTo(map);
+  map.on('focus', function(){ map.scrollWheelZoom.enable(); });
+  map.on('blur', function(){ map.scrollWheelZoom.disable(); });
+  var canTiles = /^https?:$/.test(location.protocol);
+  if (canTiles) L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(map);
+  else map.attributionControl.setPrefix('County lines: U.S. Census Bureau');
+  var HOME = [[36.62,-88.2],[37.28,-87.05]];
+  function home(fly){ if (NARROW){ fly ? map.flyTo([36.82,-87.55], 9, { duration: 0.8 }) : map.setView([36.82,-87.55], 9); } else { var o = { paddingTopLeft: [120, 20], paddingBottomRight: [14, 20] }; if (fly){ o.duration = 0.8; map.flyToBounds(HOME, o); } else map.fitBounds(HOME, o); } }
+  home(false);
+
+  map.createPane('zonePane'); map.getPane('zonePane').style.zIndex = 410;
+  map.createPane('ctyPane'); map.getPane('ctyPane').style.zIndex = 405;
+  map.createPane('routePane'); map.getPane('routePane').style.zIndex = 430;
+
+  var layers = { route: L.layerGroup(), zone: L.layerGroup(), cty: L.layerGroup(), anr: L.layerGroup() };
+  var zoneRing = buffer(ROUTE, MILES * 1.609);
+  L.polygon(zoneRing, { pane: 'zonePane', color: '#A87A22', weight: 1.5, dashArray: '6 5', fillColor: '#E3A93A', fillOpacity: 0.32, interactive: false }).addTo(layers.zone);
+
+  L.polyline(ROUTE, { pane: 'routePane', color: '#FBF8F0', weight: 9, opacity: 0.9, interactive: false }).addTo(layers.route);
+  L.polyline(ROUTE, { pane: 'routePane', color: '#A63A1E', weight: 5, dashArray: '12 8', lineCap: 'butt', interactive: false }).addTo(layers.route);
+
+  L.polyline(ANR, { pane: 'routePane', color: '#3D6E99', weight: 7, opacity: 0.85, interactive: false }).addTo(layers.anr);
+  L.polyline(ANR, { pane: 'routePane', color: '#FBF8F0', weight: 2.5, interactive: false }).addTo(layers.anr);
+
+  var townLayer = L.layerGroup().addTo(map), minor = [];
+  TOWNS.forEach(function(t){
+    L.circleMarker(t.ll, { pane: 'routePane', radius: t.key ? 7 : 4, color: t.key ? '#FBF8F0' : '#172532', weight: 2, fillColor: t.key ? '#A63A1E' : '#FBF8F0', fillOpacity: 1, interactive: false }).addTo(townLayer);
+    var mk = L.marker(t.ll, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<span class="tlabel' + (t.key ? ' key' : '') + ((t.left || (NARROW && t.end)) ? ' left' : '') + '">' + t.n + '</span>', iconSize: [0, 0] }) }).addTo(townLayer);
+    if (!t.key) minor.push(mk);
+  });
+  function syncMinor(){ var show = map.getZoom() >= 9.5; minor.forEach(function(m){ if (show) m.addTo(townLayer); else townLayer.removeLayer(m); }); }
+  map.on('zoomend', syncMinor); syncMinor();
+
+  Object.keys(layers).forEach(function(k){ layers[k].addTo(map); });
+
+  var countyFeatures = {}, countyLayers = {};
+  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json').then(function(r){ return r.json(); }).then(function(topo){
+    var all = topojson.feature(topo, topo.objects.counties).features;
+    var near = all.filter(function(f){ var id = String(f.id); return id.slice(0,2) === '21' || id.slice(0,2) === '47'; });
+    var faint = L.geoJSON({ type: 'FeatureCollection', features: near.filter(function(f){ return !COUNTIES[f.id]; }) }, { pane: 'ctyPane', style: canTiles ? { color: '#6F695C', weight: 1, opacity: 0.5, fill: false } : function(f){ return { color: '#8A8374', weight: 1, opacity: 0.6, fill: true, fillColor: String(f.id).slice(0,2) === '21' ? '#F6F1E4' : '#E2D9C2', fillOpacity: 1 }; }, interactive: false }).addTo(map);
+    var st = topojson.mesh(topo, topo.objects.states, function(a, b){ return a !== b && ((String(a.id) === '21' && String(b.id) === '47') || (String(a.id) === '47' && String(b.id) === '21')); });
+    L.geoJSON(st, { pane: 'ctyPane', style: { color: '#172532', weight: 2.5, opacity: 0.7, dashArray: '2 5' }, interactive: false }).addTo(map);
+    var labelsDim = L.layerGroup();
+    function syncDim(){ if (map.getZoom() >= 9) labelsDim.addTo(map); else map.removeLayer(labelsDim); }
+    map.on('zoomend', syncDim); syncDim();
+    near.forEach(function(f){
+      var b = L.geoJSON(f).getBounds(), c = b.getCenter();
+      if (COUNTIES[f.id]) return;
+      if (!L.latLngBounds([[36.45,-88.4],[37.4,-86.9]]).contains(c)) return;
+      var nm = f.properties && f.properties.name;
+      if (nm) L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<span class="clabel dim">' + nm + '</span>', iconSize: [0,0] }) }).addTo(labelsDim);
+    });
+    near.forEach(function(f){
+      if (!COUNTIES[f.id]) return;
+      countyFeatures[f.id] = f;
+      var lay = L.geoJSON(f, { pane: 'ctyPane', style: { color: '#0B3B63', weight: 2.2, fillColor: canTiles ? '#0B3B63' : '#FBF8F0', fillOpacity: canTiles ? 0.07 : 1 }, interactive: false }).addTo(layers.cty);
+      countyLayers[f.id] = lay;
+      var c = lay.getBounds().getCenter();
+      var offsets = { "21143": [0.02, -0.05], "21033": [0.08, 0], "21221": [-0.06, -0.02], "21047": [0.06, 0.02], "21219": [0.1, 0] };
+      var o = offsets[f.id] || [0, 0];
+      L.marker([c.lat + o[0], c.lng + o[1]], { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<span class="clabel">' + COUNTIES[f.id] + '</span>', iconSize: [0,0] }) }).addTo(layers.cty);
+    });
+  }).catch(function(){});
+
+  var lgT = document.getElementById('lgT'), lgI = document.getElementById('lgI');
+  if (NARROW){ var nt = document.querySelector('.note'), pn = document.querySelector('.panel'); nt.classList.add('inpanel'); nt.textContent = 'Proposed route — not final. Shaded zone shows where it could shift.'; pn.insertBefore(nt, pn.firstChild); }
+  if (NARROW){ lgT.setAttribute('aria-expanded','false'); lgI.textContent = '+'; document.querySelectorAll('.lg').forEach(function(b){ b.style.display = 'none'; }); }
+  lgT.addEventListener('click', function(){ var open = lgT.getAttribute('aria-expanded') === 'true'; lgT.setAttribute('aria-expanded', open ? 'false' : 'true'); lgI.textContent = open ? '+' : '−'; legendBtns.forEach(function(b){ b.style.display = open ? 'none' : ''; }); });
+  var legendBtns = document.querySelectorAll('.lg');
+  legendBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.getAttribute('data-layer'), on = b.getAttribute('aria-pressed') === 'true';
+      b.setAttribute('aria-pressed', on ? 'false' : 'true');
+      if (on) map.removeLayer(layers[k]); else layers[k].addTo(map);
+    });
+  });
+
+  var chips = document.querySelectorAll('.chip'), readout = document.getElementById('readout');
+  function highlight(id){
+    Object.keys(countyLayers).forEach(function(k){ countyLayers[k].setStyle(canTiles ? { weight: k === id ? 3.5 : 2.2, fillOpacity: k === id ? 0.16 : 0.07 } : { weight: k === id ? 3.5 : 2.2, fillColor: k === id ? '#DCE5EE' : '#FBF8F0' }); });
+  }
+  chips.forEach(function(ch){
+    ch.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.toggle('on', c === ch); });
+      var id = ch.getAttribute('data-c');
+      if (id === 'all'){ highlight(null); home(true); readout.innerHTML = '<b>Is your land close?</b> Tap your farm on the map to see how far it sits from the proposed route.'; return; }
+      highlight(id);
+      if (countyLayers[id]) map.flyToBounds(countyLayers[id].getBounds(), { padding: [16,16], duration: 0.8 });
+      readout.innerHTML = '<b>' + COUNTIES[id] + ' County.</b> ' + NOTES[id];
+    });
+  });
+
+  var pinLayer = L.layerGroup().addTo(map);
+  function check(latlng, fromGps){
+    var ll = [latlng.lat, latlng.lng], r = nearest(ll), mi = r.miles;
+    pinLayer.clearLayers();
+    L.marker(ll, { interactive: false, icon: L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [0,0] }) }).addTo(pinLayer);
+    L.polyline([ll, r.ll], { color: '#172532', weight: 2, dashArray: '3 5', interactive: false }).addTo(pinLayer);
+    var mid = [(ll[0] + r.ll[0]) / 2, (ll[1] + r.ll[1]) / 2];
+    var txt = mi < 0.1 ? 'On the route' : (mi < 10 ? mi.toFixed(1) : Math.round(mi)) + ' mi';
+    L.marker(mid, { interactive: false, icon: L.divIcon({ className: '', html: '<span class="dist">' + txt + '</span>', iconSize: [0,0] }) }).addTo(pinLayer);
+    var cty = null;
+    Object.keys(countyFeatures).forEach(function(k){ if (inFeature([ll[1], ll[0]], countyFeatures[k])) cty = COUNTIES[k]; });
+    var where = fromGps ? 'You are' : 'This spot is';
+    var dist = mi < 0.1 ? 'right on the proposed route' : 'about <b>' + (mi < 10 ? mi.toFixed(1) : Math.round(mi)) + ' miles</b> from the proposed route';
+    var zone = mi <= MILES ? ' <span class="hot">That is inside the risk zone.</span>' : '';
+    readout.innerHTML = (cty ? '<b>' + cty + ' County.</b> ' : '') + where + ' ' + dist + '.' + zone + ' The final route is not set.';
+    var b = L.latLngBounds([ll, r.ll]).pad(0.6);
+    if (!map.getBounds().contains(ll) || fromGps) map.flyToBounds(b, { maxZoom: 11, duration: 0.8 });
+  }
+  map.on('click', function(e){ check(e.latlng, false); });
+
+  document.getElementById('locate').addEventListener('click', function(){
+    if (!navigator.geolocation){ readout.textContent = 'Location is not available on this device. Tap your land on the map instead.'; return; }
+    readout.textContent = 'Finding your location…';
+    navigator.geolocation.getCurrentPosition(function(p){ check(L.latLng(p.coords.latitude, p.coords.longitude), true); }, function(){ readout.innerHTML = 'We couldn\'t get your location. <b>Tap your land on the map</b> instead.'; }, { enableHighAccuracy: true, timeout: 10000 });
+  });
+})();
+</script>
+</body>
+</html>
