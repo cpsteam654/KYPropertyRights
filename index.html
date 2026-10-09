@@ -607,6 +607,7 @@ class Component extends DCLogic {
   static modeFor(w) { return w >= 1280 ? "wide" : w >= 760 ? "mid" : "narrow"; }
   state = { feed: null, fab: false, toastI: 0, toastOn: false, toastOff: false, open: { s1: true }, tab: "price", menu: false, signed: false, first: "", copied: false, mode: typeof window !== "undefined" ? Component.modeFor(window.innerWidth) : "wide" };
   componentDidMount() {
+    if (/^#news\b/.test(location.hash) || /[?&]from=news\b/.test(location.search)) this.setState({ newsVisit: true });
     const feedUrl = this.props.signerFeedUrl;
     if (feedUrl) fetch(feedUrl).then(r => r.json()).then(d => { if (Array.isArray(d)) this.setState({ feed: d.filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 25) }); }).catch(() => {});
     const tick = () => {
@@ -733,7 +734,7 @@ class Component extends DCLogic {
       menuBtnDisplay: m === "narrow" ? "flex" : "none",
       ctaLabel: m === "narrow" ? "Sign now" : "Sign the Petition",
       ctaPad: m === "narrow" ? "12px 12px" : "13px 20px",
-      toastShow: this.signerList().length > 0 && !this.state.toastOff,
+      toastShow: this.signerList().length > 0 && !this.state.toastOff && !this.state.newsVisit,
       toastWho: (() => { const l = this.signerList(); const x = l[this.state.toastI % (l.length || 1)] || ["",""]; return x[0] + " in " + x[1]; })(),
       toastOpacity: this.state.toastOn ? "1" : "0",
       toastTf: this.state.toastOn ? "translateY(0)" : "translateY(14px)",
@@ -754,7 +755,7 @@ class Component extends DCLogic {
       mapH: m === "narrow" ? "560px" : "620px",
       pFs: m === "narrow" ? "17px" : "19px",
       leadFs: m === "narrow" ? "17px" : "20px",
-      alertOn: this.props.showAlertBar ?? true,
+      alertOn: (this.props.showAlertBar ?? true) && !this.state.newsVisit,
       rulesOn,
       cardPos: m === "narrow" ? "static" : "absolute",
       cardOrder: m === "narrow" ? "-1" : "0",
