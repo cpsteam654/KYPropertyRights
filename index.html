@@ -648,7 +648,7 @@ class Component extends DCLogic {
       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, done);
       else { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (_) {} ta.remove(); done(); }
     };
-    const vid = (this.props.newsUrl || "https://kentuckycoalitionforpropertyrights.com/news/");
+    const vid = (this.props.newsUrl || "https://kentuckycoalitionforpropertyrights.com/news.html");
     const m = s.mode;
     const post = "Who is the PREA pipeline actually for? NewsChannel 5 came to Princeton and asked. The PREA says it has contracts. Under oath, its own chairman said, \"We have no contract with anybody for the supply of gas.\"\n\nWatch it and share it with your neighbors on the route. Then sign the petition: https://kentuckycoalitionforpropertyrights.com\n\n" + vid;
     const x = "Who is the PREA pipeline for? NewsChannel 5 asked. Under oath, PREA's chairman: \"We have no contract with anybody for the supply of gas.\" Watch:";
