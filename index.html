@@ -76,6 +76,7 @@
       <a href="#rights" style="color:#FFFFFF;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap" style-hover="border-bottom-color:#FFFFFF;color:#FFFFFF">If They Contact You</a>
       <a href="#case" style="color:#FFFFFF;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap" style-hover="border-bottom-color:#FFFFFF;color:#FFFFFF">Why It's Wrong</a>
       <a href="#money" style="color:#FFFFFF;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap" style-hover="border-bottom-color:#FFFFFF;color:#FFFFFF">Tax Money</a>
+      <a href="#audit" style="color:#FFFFFF;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap" style-hover="border-bottom-color:#FFFFFF;color:#FFFFFF">Audit</a>
       <a href="#risk" style="color:#FFFFFF;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap" style-hover="border-bottom-color:#FFFFFF;color:#FFFFFF">Safety</a>
     </nav>
     <a href="#petition" style="flex:none;background:#E3A93A;color:#172532;font-family:Archivo,sans-serif;font-weight:800;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;padding:{{ ctaPad }};text-decoration:none;white-space:nowrap;border-bottom:3px solid #A87A22" style-hover="background:#EDBE5E;color:#172532">{{ ctaLabel }}</a>
@@ -107,6 +108,7 @@
   <a href="#rights" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">If the PREA contacts you<span style="color:#E3A93A">→</span></a>
   <a href="#case" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">The case against it<span style="color:#E3A93A">→</span></a>
   <a href="#money" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">The money<span style="color:#E3A93A">→</span></a>
+  <a href="#audit" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">Email the State Auditor<span style="color:#E3A93A">→</span></a>
   <a href="#risk" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">Health &amp; safety<span style="color:#E3A93A">→</span></a>
   <a href="#petition" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;min-height:52px;box-sizing:border-box;border-top:1px solid rgba(255,255,255,.14);color:#FFFFFF;text-decoration:none;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#0F4A7A;color:#FFFFFF">Sign the petition<span style="color:#E3A93A">→</span></a>
 </nav>
@@ -425,6 +427,77 @@
   </div>
 </section>
 
+<section id="audit" style="background:#FAF6EC;scroll-margin-top:{{ newsScrollPad }}">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,7vw,100px) clamp(20px,5vw,40px);display:grid;grid-template-columns:{{ auditCols }};grid-template-areas:{{ auditAreas }};grid-template-rows:{{ auditGridRows }};column-gap:clamp(28px,4.5vw,64px);row-gap:clamp(24px,3.4vw,36px)">
+    <div style="grid-area:head;min-width:0">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:#0B3B63;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;padding:8px 14px;margin-bottom:20px">Take action · State Auditor</div>
+      <h2 style="font-family:Archivo,sans-serif;font-weight:800;font-stretch:80%;letter-spacing:-.005em;font-size:clamp(32px,4.6vw,58px);line-height:1;margin:0 0 clamp(18px,2.4vw,24px);text-transform:uppercase;text-wrap:balance;color:#172532">Ask the State Auditor where our $30 million went. <span style="color:#3F6B2E">The PREA won't say.</span></h2>
+      <p style="font-size:{{ pFs }};line-height:1.6;margin:0 0 14px;color:#3A352C;text-wrap:pretty">The PREA has received $30 million in state tax money. An estimated $7–8 million is already spent, nothing has been built, and there is no public report showing where a dollar of it went. The State Auditor's job is to check how public money is spent. <strong style="font-weight:600;color:#172532">Ask the Auditor's office to examine the PREA.</strong></p>
+      <p style="font-size:{{ pFs }};line-height:1.6;margin:0;color:#3A352C;text-wrap:pretty">We wrote a message to get you started. Add your name, change anything you want, and press Send email. Your own email opens with the message filled in and addressed. All you do is hit send.</p>
+    </div>
+    <div id="audit-form" style="grid-area:form;align-self:start;min-width:0;margin:{{ auditCardMargin }};background:#FFFFFF;color:#172532;padding:clamp(20px,2.6vw,34px);border-top:6px solid #E3A93A;border-bottom:6px solid #0B3B63;box-shadow:{{ newsVidShadow }}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <img src="assets/warn-alert.png" alt="" style="width:24px;height:auto;flex:none">
+        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#4E7A2A">Email the State Auditor</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;padding:12px 14px;background:#F3ECDB;margin-bottom:18px">
+        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">To</span>
+        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:.02em;color:#0B3B63;word-break:break-all">Shari.Scott@ky.gov</span>
+        <span style="font-size:14px;line-height:1.4;color:#5E574B">Kentucky State Auditor's office</span>
+      </div>
+      <form onSubmit="{{ onAuditSend }}" style="display:grid;gap:14px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px">
+          <label style="display:grid;gap:6px;min-width:0">
+            <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">Your name</span>
+            <input name="auditName" required="" autocomplete="name" autocapitalize="words" enterkeyhint="next" placeholder="Full name" value="{{ auditName }}" onChange="{{ onAuditName }}" style="width:100%;min-height:48px;box-sizing:border-box;padding:{{ inPad }};border:1.5px solid rgba(23,37,50,.3);background:#FBF8F0;font-size:16px;font-family:'Source Serif 4',Georgia,serif">
+          </label>
+          <label style="display:grid;gap:6px;min-width:0">
+            <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">Your town</span>
+            <input name="auditTown" autocomplete="address-level2" autocapitalize="words" enterkeyhint="next" placeholder="e.g. Princeton" value="{{ auditTown }}" onChange="{{ onAuditTown }}" style="width:100%;min-height:48px;box-sizing:border-box;padding:{{ inPad }};border:1.5px solid rgba(23,37,50,.3);background:#FBF8F0;font-size:16px;font-family:'Source Serif 4',Georgia,serif">
+          </label>
+        </div>
+        <label style="display:grid;gap:6px;min-width:0">
+          <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">Subject</span>
+          <input name="auditSubject" autocapitalize="sentences" enterkeyhint="next" value="{{ auditSubject }}" onChange="{{ onAuditSubject }}" style="width:100%;min-height:48px;box-sizing:border-box;padding:{{ inPad }};border:1.5px solid rgba(23,37,50,.3);background:#FBF8F0;font-size:16px;font-family:'Source Serif 4',Georgia,serif">
+        </label>
+        <div style="display:grid;gap:6px;min-width:0">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px">
+            <label for="audit-msg" style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">Your message · make it your own</label>
+            <sc-if value="{{ auditEdited }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ onAuditReset }}" style="min-height:44px;padding:0 0 0 8px;border:0;background:none;color:#5E574B;font-family:'Source Serif 4',Georgia,serif;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer" style-hover="color:#4E7A2A">Restore the sample</button>
+            </sc-if>
+          </div>
+          <textarea id="audit-msg" name="auditBody" ref="{{ auditTaRef }}" autocapitalize="sentences" rows="{{ auditTaRows }}" value="{{ auditBody }}" onChange="{{ onAuditBody }}" style="width:100%;box-sizing:border-box;padding:{{ inPad }};border:1.5px solid rgba(23,37,50,.3);background:#FBF8F0;font-size:16px;line-height:1.5;font-family:'Source Serif 4',Georgia,serif;color:#172532;resize:vertical"></textarea>
+          <div style="font-size:14px;line-height:1.45;color:#5E574B;text-wrap:pretty">Signed at the end: <strong style="font-weight:600;color:#172532">{{ auditSignLine }}</strong></div>
+        </div>
+        <button type="submit" value="mail" style="width:100%;padding:{{ btnPad }};border:0;background:#0B3B63;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:15px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-bottom:4px solid #062740" style-hover="background:#0F4A7A">Send email</button>
+        <div style="display:grid;grid-template-columns:{{ auditAltCols }};gap:8px">
+          <sc-if value="{{ auditShowGmail }}" hint-placeholder-val="{{ true }}">
+          <button type="submit" value="gmail" style="display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 8px;box-sizing:border-box;border:2px solid #0B3B63;background:transparent;color:#0B3B63;font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#DCE5EE;color:#0B3B63">Open in Gmail</button>
+          </sc-if>
+          <button type="button" onClick="{{ onAuditCopy }}" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 8px;box-sizing:border-box;border:2px solid #0B3B63;background:transparent;color:#0B3B63;font-family:Archivo,sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#DCE5EE;color:#0B3B63">{{ auditCopyLabel }}</button>
+        </div>
+        <sc-if value="{{ auditSentOn }}" hint-placeholder-val="{{ false }}">
+        <p role="status" style="margin:0;font-size:15px;line-height:1.45;color:#3F6B2E;font-weight:600;text-wrap:pretty">{{ auditSentMsg }}</p>
+        </sc-if>
+        <p style="margin:0;font-size:13px;line-height:1.45;color:#5E574B;text-wrap:pretty">{{ auditHelp }}</p>
+      </form>
+    </div>
+    <div style="grid-area:share;align-self:start;min-width:0">
+      <div style="font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#4E7A2A;margin-bottom:10px">Ask your neighbors to write too</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+        <a href="{{ auditFbHref }}" target="_blank" rel="noopener" onClick="{{ onAuditFb }}" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 10px;box-sizing:border-box;background:#0B3B63;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;border-bottom:4px solid #062740" style-hover="background:#0F4A7A;color:#FFFFFF">Facebook</a>
+        <a href="{{ auditXHref }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 10px;box-sizing:border-box;background:#0B3B63;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;border-bottom:4px solid #062740" style-hover="background:#0F4A7A;color:#FFFFFF">Post on X</a>
+        <a href="{{ auditSmsHref }}" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 10px;box-sizing:border-box;background:#3F6B2E;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;border-bottom:4px solid #2C4D20" style-hover="background:#4A7B36;color:#FFFFFF">Text it</a>
+        <button type="button" onClick="{{ onAuditLinkCopy }}" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 10px;box-sizing:border-box;border:0;background:#3F6B2E;color:#FFFFFF;font-family:Archivo,sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-bottom:4px solid #2C4D20" style-hover="background:#4A7B36">{{ auditLinkLabel }}</button>
+      </div>
+      <sc-if value="{{ auditFbNote }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:10px 0 0;font-size:14px;line-height:1.45;color:#3F6B2E;font-weight:600">Post copied. Paste it into Facebook when the share window opens.</p>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
 <section id="risk" style="background:#F3ECDB;border-top:6px solid #E3A93A">
   <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,7vw,100px) clamp(20px,5vw,40px)">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,4.5vw,60px);align-items:center;margin-bottom:clamp(26px,4vw,48px)">
@@ -532,6 +605,7 @@
       <div style="display:grid;gap:10px;font-size:16px">
         <a href="#case" style="color:#D6D2C4;text-decoration:none" style-hover="color:#E3A93A">The case against it</a>
         <a href="#money" style="color:#D6D2C4;text-decoration:none" style-hover="color:#E3A93A">The money</a>
+        <a href="#audit" style="color:#D6D2C4;text-decoration:none" style-hover="color:#E3A93A">Ask for an audit</a>
         <a href="#risk" style="color:#D6D2C4;text-decoration:none" style-hover="color:#E3A93A">Health and safety</a>
       </div>
     </div>
@@ -607,7 +681,7 @@ class Component extends DCLogic {
   static modeFor(w) { return w >= 1280 ? "wide" : w >= 760 ? "mid" : "narrow"; }
   state = { feed: null, fab: false, toastI: 0, toastOn: false, toastOff: false, open: { s1: true }, tab: "price", menu: false, signed: false, first: "", copied: false, mode: typeof window !== "undefined" ? Component.modeFor(window.innerWidth) : "wide" };
   componentDidMount() {
-    if (/^#news\b/.test(location.hash) || /[?&]from=news\b/.test(location.search)) this.setState({ newsVisit: true });
+    if (/^#(news|audit)\b/.test(location.hash) || /[?&]from=(news|audit)\b/.test(location.search)) this.setState({ newsVisit: true });
     const feedUrl = this.props.signerFeedUrl;
     if (feedUrl) fetch(feedUrl).then(r => r.json()).then(d => { if (Array.isArray(d)) this.setState({ feed: d.filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 25) }); }).catch(() => {});
     const tick = () => {
@@ -623,6 +697,12 @@ class Component extends DCLogic {
       this._io = new IntersectionObserver(([e]) => { const v = !e.isIntersecting; if (v !== this.state.fab) this.setState({ fab: v }); }, { threshold: 0.15 });
       this._io.observe(pet);
     }
+    const af = document.getElementById("audit-form");
+    if (af && "IntersectionObserver" in window) {
+      this._aio = new IntersectionObserver(([e]) => { if (e.isIntersecting !== !!this.state.auditInView) this.setState({ auditInView: e.isIntersecting }); }, { threshold: 0 });
+      this._aio.observe(af);
+    }
+    this._touch = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
     this._r = () => { const mode = Component.modeFor(window.innerWidth); if (mode !== this.state.mode) this.setState({ mode }); };
     window.addEventListener("resize", this._r);
     this._r();
@@ -669,6 +749,69 @@ class Component extends DCLogic {
       newsScrollPad: m === "narrow" ? "150px" : "170px"
     };
   }
+  auditVals() {
+    const s = this.state, m = s.mode;
+    const TO = "Shari.Scott@ky.gov";
+    const link = "https://kentuckycoalitionforpropertyrights.com/audit.html";
+    const subjDefault = "Request to examine the Pennyrile Regional Energy Authority's use of state funds";
+    const bodyDefault = "Dear Ms. Scott,\n\nI am a Kentucky taxpayer, and I am asking the State Auditor's office to examine how the Pennyrile Regional Energy Authority (PREA) has spent public money.\n\nThe PREA received $30 million in state tax money for a proposed 53-mile gas pipeline through Lyon, Caldwell, Trigg, Christian and Todd counties. An estimated $7–8 million has already been spent, and nothing has been built. I cannot find a single public report or audit showing where that money went.\n\nWhen the PREA's board chair was asked under oath to account for the $30 million, he said, “We don't send anything to the government.”\n\nThe PREA is now using eminent domain against Kentucky landowners, and no independent regulator reviews its route, its price or its costs. Kentuckians deserve to know how our money has been spent before any more land is taken.\n\nPlease examine the PREA's use of state funds and make your findings public.\n\nThank you for your time.";
+    const subj = s.auditSubject ?? subjDefault;
+    const body = s.auditBody ?? bodyDefault;
+    const name = (s.auditName || "").trim(), town = (s.auditTown || "").trim();
+    const sign = "Sincerely,\n" + (name || "[Your name]") + (town ? "\n" + town + ", Kentucky" : "");
+    const full = body.replace(/\s+$/, "") + "\n\n" + sign;
+    const mailto = "mailto:" + TO + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(full);
+    const gmail = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(TO) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(full);
+    const copyText = (t, done) => {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, done);
+      else { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (_) {} ta.remove(); done(); }
+    };
+    const track = (method) => { try { if (window.gtag) window.gtag("event", "audit_email", { method }); } catch (_) {} };
+    const flash = (k, ms) => { this.setState({ [k]: true }); clearTimeout(this["_" + k]); this["_" + k] = setTimeout(() => this.setState({ [k]: false }), ms); };
+    const post = "Kentucky put $30 million of our tax money into the PREA pipeline. An estimated $7–8 million is already spent, nothing has been built, and there is no public record of where it went.\n\nI just asked the State Auditor to look into it. It takes two minutes. The message is already written, just add your name and send:\n\n" + link + "\n\n#StopPREAPipeline #LandRights";
+    const xText = "$30M in Kentucky tax money to the PREA. $7–8M already spent. Nothing built. No public accounting. I just asked the State Auditor to follow the money. Takes two minutes:";
+    return {
+      auditName: s.auditName || "",
+      auditTown: s.auditTown || "",
+      auditSubject: subj,
+      auditBody: body,
+      auditEdited: s.auditBody != null && s.auditBody !== bodyDefault,
+      auditSignLine: "Sincerely, " + (name || "your name") + (town ? ", " + town + ", Kentucky" : ""),
+      onAuditName: e => this.setState({ auditName: e.target.value }),
+      onAuditTown: e => this.setState({ auditTown: e.target.value }),
+      onAuditSubject: e => this.setState({ auditSubject: e.target.value }),
+      onAuditBody: e => this.setState({ auditBody: e.target.value }),
+      onAuditReset: () => this.setState({ auditBody: null }),
+      onAuditSend: (e) => {
+        e.preventDefault();
+        const sub = e.nativeEvent && e.nativeEvent.submitter;
+        const via = sub && sub.value === "gmail" ? "gmail" : "mailto";
+        track(via);
+        if (via === "gmail") window.open(gmail, "_blank", "noopener"); else window.location.href = mailto;
+        this.setState({ auditSent: via });
+      },
+      onAuditCopy: () => { track("copy"); copyText("To: " + TO + "\nSubject: " + subj + "\n\n" + full, () => flash("auditCopied", 3000)); },
+      auditCopyLabel: s.auditCopied ? "Copied" : "Copy message",
+      auditSentOn: !!s.auditSent,
+      auditSentMsg: s.auditSent === "gmail" ? "✓ Gmail opened in a new tab with your message. Press send there to deliver it." : "✓ Your email app should now be open with the message ready. Press send there to deliver it.",
+      auditFbHref: "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link),
+      onAuditFb: () => copyText(post, () => flash("auditFbCopied", 6000)),
+      auditFbNote: !!s.auditFbCopied,
+      auditXHref: "https://x.com/intent/tweet?text=" + encodeURIComponent(xText) + "&url=" + encodeURIComponent(link),
+      auditSmsHref: "sms:?&body=" + encodeURIComponent("I just emailed the State Auditor asking where the PREA's $30 million in tax money went. The message is already written. Add your name and send it: " + link),
+      onAuditLinkCopy: () => copyText(link, () => flash("auditLinkCopied", 4000)),
+      auditLinkLabel: s.auditLinkCopied ? "Link copied" : "Copy link",
+      auditCols: m === "narrow" ? "minmax(0,1fr)" : "minmax(0,1fr) minmax(0,1.05fr)",
+      auditAreas: m === "narrow" ? "'head' 'form' 'share'" : "'head form' 'share form'",
+      auditGridRows: m === "narrow" ? "auto auto auto" : "auto 1fr",
+      auditCardMargin: m === "narrow" ? "0 calc(-1 * clamp(20px,5vw,40px) + 8px)" : "0",
+      auditTaRows: m === "narrow" ? 10 : 15,
+      auditTaRef: this._taRef || (this._taRef = el => { this._ta = el; if (el) requestAnimationFrame(() => this.sizeTa()); }),
+      auditShowGmail: !this._touch,
+      auditAltCols: this._touch ? "minmax(0,1fr)" : "repeat(2,minmax(0,1fr))",
+      auditHelp: this._touch ? "Send email opens the email app on your phone. If nothing opens, tap Copy message and paste it into a new email to Shari.Scott@ky.gov." : "Send email opens the email app on your computer. If nothing opens, use Gmail, or copy the message and paste it into a new email to Shari.Scott@ky.gov."
+    };
+  }
   shareVals() {
     const url = this.props.shareUrl || "https://kentuckycoalitionforpropertyrights.com";
     const full = "🚨🚨ATTENTION WESTERN KENTUCKY NEIGHBORS🚨🚨\n\nI just signed the petition to protect Kentucky landowners from the dangerous PREA pipeline. 🌾\n\nFamilies across southwestern Kentucky are being forced to give up their land – some of which they’ve held onto for generations.\n\nAdd your name and stand with your neighbors against this pipeline. 👇\n\n" + url + "\n\n#StopPREAPipeline #NoPipeline #LandRights";
@@ -708,9 +851,16 @@ class Component extends DCLogic {
       reset: () => this.setState({ signed: false, first: "", copied: false })
     };
   }
-  componentWillUnmount() { clearTimeout(this._tstart); clearInterval(this._tint); clearTimeout(this._th); if (this._io) this._io.disconnect(); window.removeEventListener("resize", this._r); window.removeEventListener("hashchange", this._hash); clearTimeout(this._ht); clearTimeout(this._ht2); }
+  componentDidUpdate() { this.sizeTa(); }
+  sizeTa() {
+    const el = this._ta; if (!el) return;
+    if (this.state.mode === "narrow") { el.style.height = "auto"; el.style.height = (el.scrollHeight + 4) + "px"; }
+    else if (el.style.height) el.style.height = "";
+  }
+  componentWillUnmount() { clearTimeout(this._tstart); clearInterval(this._tint); clearTimeout(this._th); if (this._io) this._io.disconnect(); if (this._aio) this._aio.disconnect(); window.removeEventListener("resize", this._r); window.removeEventListener("hashchange", this._hash); clearTimeout(this._ht); clearTimeout(this._ht2); }
   renderVals() {
     const m = this.state.mode;
+    const fabOn = this.state.fab && !this.state.auditInView;
     const rulesOn = this.props.showRulesSection ?? true;
     const o = {}, ic = {}, tg = {}, more = {};
     ["s1","s2","s3","s4","price","board","petrie","land","rules","watch"].forEach(k => {
@@ -734,18 +884,18 @@ class Component extends DCLogic {
       menuBtnDisplay: m === "narrow" ? "flex" : "none",
       ctaLabel: m === "narrow" ? "Sign now" : "Sign the Petition",
       ctaPad: m === "narrow" ? "12px 12px" : "13px 20px",
-      toastShow: this.signerList().length > 0 && !this.state.toastOff && !this.state.newsVisit,
+      toastShow: this.signerList().length > 0 && !this.state.toastOff && !this.state.newsVisit && !this.state.auditInView,
       toastWho: (() => { const l = this.signerList(); const x = l[this.state.toastI % (l.length || 1)] || ["",""]; return x[0] + " in " + x[1]; })(),
       toastOpacity: this.state.toastOn ? "1" : "0",
       toastTf: this.state.toastOn ? "translateY(0)" : "translateY(14px)",
       toastPe: this.state.toastOn ? "auto" : "none",
-      toastBottom: this.state.fab ? (m === "narrow" ? "calc(max(16px, env(safe-area-inset-bottom) + 12px) + 72px)" : "calc(max(16px, env(safe-area-inset-bottom) + 12px) + 86px)") : "max(16px, calc(env(safe-area-inset-bottom) + 12px))",
+      toastBottom: fabOn ? (m === "narrow" ? "calc(max(16px, env(safe-area-inset-bottom) + 12px) + 72px)" : "calc(max(16px, env(safe-area-inset-bottom) + 12px) + 86px)") : "max(16px, calc(env(safe-area-inset-bottom) + 12px))",
       toastDismiss: () => this.setState({ toastOff: true, toastOn: false }),
-      fabOpacity: this.state.fab ? "1" : "0",
-      fabTf: this.state.fab ? "translateY(0) rotate(-1.5deg)" : "translateY(24px) rotate(-1.5deg)",
-      fabPe: this.state.fab ? "auto" : "none",
-      fabHidden: this.state.fab ? "false" : "true",
-      fabTab: this.state.fab ? "0" : "-1",
+      fabOpacity: fabOn ? "1" : "0",
+      fabTf: fabOn ? "translateY(0) rotate(-1.5deg)" : "translateY(24px) rotate(-1.5deg)",
+      fabPe: fabOn ? "auto" : "none",
+      fabHidden: fabOn ? "false" : "true",
+      fabTab: fabOn ? "0" : "-1",
       fabPad: m === "narrow" ? "9px 14px 9px 9px" : "12px 20px 12px 12px",
       fabIcon: m === "narrow" ? "38px" : "46px",
       fabFs: m === "narrow" ? "19px" : "23px",
@@ -784,7 +934,8 @@ class Component extends DCLogic {
       logoFlex: m === "narrow" ? "1 1 auto" : "none",
       bandPadLeft: m === "mid" ? "calc(35% + 8px)" : "clamp(20px,5vw,40px)",
       ...this.shareVals(),
-      ...this.newsVals()
+      ...this.newsVals(),
+      ...this.auditVals()
     };
   }
 }
