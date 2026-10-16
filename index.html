@@ -438,12 +438,12 @@
     <div id="audit-form" style="grid-area:form;align-self:start;min-width:0;margin:{{ auditCardMargin }};background:#FFFFFF;color:#172532;padding:clamp(20px,2.6vw,34px);border-top:6px solid #E3A93A;border-bottom:6px solid #0B3B63;box-shadow:{{ newsVidShadow }}">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <img src="assets/warn-alert.png" alt="" style="width:24px;height:auto;flex:none">
-        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#4E7A2A">Email the State Auditor</span>
+        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#4E7A2A">Email the State Auditor's Office</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;padding:12px 14px;background:#F3ECDB;margin-bottom:18px">
         <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E574B">To</span>
-        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:.02em;color:#0B3B63;word-break:break-all">Shari.Scott@ky.gov</span>
-        <span style="font-size:14px;line-height:1.4;color:#5E574B">Kentucky State Auditor's office</span>
+        <span style="font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:.02em;color:#0B3B63">Kentucky State Auditor's Office</span>
+        <span style="flex-basis:100%;display:grid;gap:2px;font-size:14.5px;line-height:1.4;color:#5E574B;word-break:break-all"><span>Shari.Scott@ky.gov</span><span>BryanD.Morrow@ky.gov</span><span>InfoRequest@ky.gov</span></span>
       </div>
       <form onSubmit="{{ onAuditSend }}" style="display:grid;gap:14px">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px">
@@ -751,16 +751,16 @@ class Component extends DCLogic {
   }
   auditVals() {
     const s = this.state, m = s.mode;
-    const TO = "Shari.Scott@ky.gov";
+    const TO = "Shari.Scott@ky.gov,BryanD.Morrow@ky.gov,InfoRequest@ky.gov";
     const link = "https://kentuckycoalitionforpropertyrights.com/audit.html";
     const subjDefault = "Request to examine the Pennyrile Regional Energy Authority's use of state funds";
-    const bodyDefault = "Dear Ms. Scott,\n\nI am a Kentucky taxpayer, and I am asking the State Auditor's office to examine how the Pennyrile Regional Energy Authority (PREA) has spent public money.\n\nThe PREA received $30 million in state tax money for a proposed 53-mile gas pipeline through Lyon, Caldwell, Trigg, Christian and Todd counties. An estimated $7–8 million has already been spent, and nothing has been built. I cannot find a single public report or audit showing where that money went.\n\nWhen the PREA's board chair was asked under oath to account for the $30 million, he said, “We don't send anything to the government.”\n\nThe PREA is now using eminent domain against Kentucky landowners, and no independent regulator reviews its route, its price or its costs. Kentuckians deserve to know how our money has been spent before any more land is taken.\n\nPlease examine the PREA's use of state funds and make your findings public.\n\nThank you for your time.";
+    const bodyDefault = "To the Office of the State Auditor,\n\nI am a Kentucky taxpayer, and I am asking the State Auditor's office to examine how the Pennyrile Regional Energy Authority (PREA) has spent public money.\n\nThe PREA received $30 million in state tax money for a proposed 53-mile gas pipeline through Lyon, Caldwell, Trigg, Christian and Todd counties. An estimated $7–8 million has already been spent, and nothing has been built. I cannot find a single public report or audit showing where that money went.\n\nWhen the PREA's board chair was asked under oath to account for the $30 million, he said, “We don't send anything to the government.”\n\nThe PREA is now using eminent domain against Kentucky landowners, and no independent regulator reviews its route, its price or its costs. Kentuckians deserve to know how our money has been spent before any more land is taken.\n\nPlease examine the PREA's use of state funds and make your findings public.\n\nThank you for your time.";
     const subj = s.auditSubject ?? subjDefault;
     const body = s.auditBody ?? bodyDefault;
     const name = (s.auditName || "").trim(), town = (s.auditTown || "").trim();
     const sign = "Sincerely,\n" + (name || "[Your name]") + (town ? "\n" + town + ", Kentucky" : "");
     const full = body.replace(/\s+$/, "") + "\n\n" + sign;
-    const mailto = "mailto:" + TO + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(full);
+    const mailto = "mailto:" + TO.split(",").map(encodeURIComponent).join(",") + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(full);
     const gmail = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(TO) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(full);
     const copyText = (t, done) => {
       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, done);
@@ -790,7 +790,7 @@ class Component extends DCLogic {
         if (via === "gmail") window.open(gmail, "_blank", "noopener"); else window.location.href = mailto;
         this.setState({ auditSent: via });
       },
-      onAuditCopy: () => { track("copy"); copyText("To: " + TO + "\nSubject: " + subj + "\n\n" + full, () => flash("auditCopied", 3000)); },
+      onAuditCopy: () => { track("copy"); copyText("To: " + TO.split(",").join(", ") + "\nSubject: " + subj + "\n\n" + full, () => flash("auditCopied", 3000)); },
       auditCopyLabel: s.auditCopied ? "Copied" : "Copy message",
       auditSentOn: !!s.auditSent,
       auditSentMsg: s.auditSent === "gmail" ? "✓ Gmail opened in a new tab with your message. Press send there to deliver it." : "✓ Your email app should now be open with the message ready. Press send there to deliver it.",
@@ -809,7 +809,7 @@ class Component extends DCLogic {
       auditTaRef: this._taRef || (this._taRef = el => { this._ta = el; if (el) requestAnimationFrame(() => this.sizeTa()); }),
       auditShowGmail: !this._touch,
       auditAltCols: this._touch ? "minmax(0,1fr)" : "repeat(2,minmax(0,1fr))",
-      auditHelp: this._touch ? "Send email opens the email app on your phone. If nothing opens, tap Copy message and paste it into a new email to Shari.Scott@ky.gov." : "Send email opens the email app on your computer. If nothing opens, use Gmail, or copy the message and paste it into a new email to Shari.Scott@ky.gov."
+      auditHelp: this._touch ? "Send email opens the email app on your phone. If nothing opens, tap Copy message and paste it into a new email to Shari.Scott@ky.gov, BryanD.Morrow@ky.gov and InfoRequest@ky.gov." : "Send email opens the email app on your computer. If nothing opens, use Gmail, or copy the message and paste it into a new email to Shari.Scott@ky.gov, BryanD.Morrow@ky.gov and InfoRequest@ky.gov."
     };
   }
   shareVals() {
